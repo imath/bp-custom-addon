@@ -3,22 +3,22 @@
  * BP Custom Add-on is an example of BuddyPress Add-on.
  *
  * @package   BP Custom Add-on
- * @author    The BuddyPress community
+ * @author    imath
  * @license   GPL-2.0+
- * @link      http://buddypress.org
+ * @link      https://imathi.eu
  *
  * @buddypress-plugin
  * Plugin Name:       BP Custom Add-on
- * Plugin URI:        https://github.com/buddypress/bp-custom-addon
+ * Plugin URI:        https://github.com/imath/bp-custom-addon
  * Description:       BP Custom Add-on is an example of BuddyPress Add-on.
  * Version:           1.0.0-alpha
- * Author:            The BuddyPress Community
- * Author URI:        http://buddypress.org/community/members/
+ * Author:            imath
+ * Author URI:        https://imathi.eu
  * Text Domain:       bp-custom-addon
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages/
- * GitHub Plugin URI: https://github.com/buddypress/bp-custom-addon
+ * GitHub Plugin URI: https://github.com/imath/bp-custom-addon
  * Requires at least: 6.2
  * Requires PHP:      5.6
  * Requires Plugins:  buddypress
@@ -122,7 +122,7 @@ class BP_Custom_AddOn {
 	}
 
 	/**
-	 * Displays an admin notice to explain how to activate BP Attachments.
+	 * Displays an admin notice to explain how to activate BP Custom Add-on.
 	 *
 	 * @since 1.0.0
 	 */
@@ -137,7 +137,7 @@ class BP_Custom_AddOn {
 			'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
 			sprintf(
 				/* translators: 1. is the link to the BuddyPress plugin on the WordPress.org plugin directory. */
-				esc_html__( 'BP Attachments requires the %1$s plugin to be active. Please deactivate BP Attachments, activate %1$s and only then, reactivate BP Attachments.', 'bp-attachments' ),
+				esc_html__( 'BP Custom Add-on requires the %1$s plugin to be active. Please deactivate BP Custom Add-on, activate %1$s and only then, reactivate BP Custom Add-on.', 'bp-attachments' ),
 				$bp_plugin_link // phpcs:ignore
 			)
 		);
@@ -154,5 +154,5 @@ function bp_custom_add_on() {
 }
 add_action( 'bp_loaded', 'bp_custom_add_on', 1 );
 
-// Displays a notice to inform BP Attachments needs to be activated after BuddyPress.
+// Displays a notice to inform BP Custom Add-on needs to be activated after BuddyPress.
 add_action( 'admin_notices', array( 'BP_Custom_AddOn', 'admin_notice' ) );
