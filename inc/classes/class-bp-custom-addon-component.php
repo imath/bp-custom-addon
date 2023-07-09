@@ -22,8 +22,6 @@ class BP_Custom_AddOn_Component extends BP_Component {
 				'search_query_arg'         => 'custom-component-search',
 			)
 		);
-
-		buddypress()->active_components['custom'] = 1;
 	}
 
 	/**
