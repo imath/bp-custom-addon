@@ -14,7 +14,7 @@
  * Version:           1.0.0-alpha
  * Author:            imath
  * Author URI:        https://imathi.eu
- * Text Domain:       bp-custom-addon
+ * Text Domain:       custom-text-domain
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages/
@@ -22,6 +22,7 @@
  * Requires at least: 6.2
  * Requires PHP:      5.6
  * Requires Plugins:  buddypress
+ * Supports BP up to: 12.0
  */
 
 // Exit if accessed directly.
@@ -44,25 +45,29 @@ class BP_Custom_AddOn {
 	protected static $instance = null;
 
 	/**
-	 * Checks whether BuddyPress is active.
+	 * Checks whether BuddyPress is active and current version is supported.
 	 *
 	 * @since 1.0.0
 	 */
-	public static function is_buddypress_active() {
-		$bp_plugin_basename   = 'buddypress/bp-loader.php';
-		$is_buddypress_active = false;
-		$sitewide_plugins     = (array) get_site_option( 'active_sitewide_plugins', array() );
+	public static function is_buddypress_supported() {
+		$bp_plugin_basename      = 'buddypress/bp-loader.php';
+		$is_buddypress_supported = false;
+		$sitewide_plugins        = (array) get_site_option( 'active_sitewide_plugins', array() );
 
 		if ( $sitewide_plugins ) {
-			$is_buddypress_active = isset( $sitewide_plugins[ $bp_plugin_basename ] );
+			$is_buddypress_supported = isset( $sitewide_plugins[ $bp_plugin_basename ] );
 		}
 
-		if ( ! $is_buddypress_active ) {
-			$plugins              = (array) get_option( 'active_plugins', array() );
-			$is_buddypress_active = in_array( $bp_plugin_basename, $plugins, true );
+		if ( ! $is_buddypress_supported ) {
+			$plugins                 = (array) get_option( 'active_plugins', array() );
+			$is_buddypress_supported = in_array( $bp_plugin_basename, $plugins, true );
 		}
 
-		return $is_buddypress_active;
+		if ( $is_buddypress_supported ) {
+			$is_buddypress_supported = version_compare( bp_get_version(), '12.0.0-alpha', '>=' );
+		}
+
+		return $is_buddypress_supported;
 	}
 
 	/**
@@ -72,7 +77,7 @@ class BP_Custom_AddOn {
 	 */
 	public static function start() {
 		// This plugin is only usable with the genuine BuddyPress.
-		if ( ! self::is_buddypress_active() ) {
+		if ( ! self::is_buddypress_supported() ) {
 			return false;
 		}
 
@@ -127,18 +132,19 @@ class BP_Custom_AddOn {
 	 * @since 1.0.0
 	 */
 	public static function admin_notice() {
-		if ( self::is_buddypress_active() ) {
+		if ( self::is_buddypress_supported() ) {
 			return false;
 		}
 
-		$bp_plugin_link = sprintf( '<a href="%s">BuddyPress</a>', esc_url( _x( 'https://wordpress.org/plugins/buddypress', 'BuddyPress WP plugin directory URL', 'bp-attachments' ) ) );
+		$bp_plugin_link = sprintf( '<a href="%s">BuddyPress</a>', esc_url( _x( 'https://wordpress.org/plugins/buddypress', 'BuddyPress WP plugin directory URL', 'custom-text-domain' ) ) );
 
 		printf(
 			'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
 			sprintf(
 				/* translators: 1. is the link to the BuddyPress plugin on the WordPress.org plugin directory. */
-				esc_html__( 'BP Custom Add-on requires the %1$s plugin to be active. Please deactivate BP Custom Add-on, activate %1$s and only then, reactivate BP Custom Add-on.', 'bp-attachments' ),
-				$bp_plugin_link // phpcs:ignore
+				esc_html__( 'BP Custom Add-on requires the %1$s plugin to be active and its version must be %2$s. Please deactivate BP Custom Add-on, activate %1$s and only then, reactivate BP Custom Add-on.', 'custom-text-domain' ),
+				$bp_plugin_link, // phpcs:ignore
+				'<b>>= 12.0.0</b>' // phpcs:ignore
 			)
 		);
 	}
