@@ -25,6 +25,39 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	}
 
 	/**
+	 * Your component global variables (BP Ones and your component ones).
+	 *
+	 * @see BP_Component::setup_globals() for a description of arguments.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $args See BP_Component::setup_globals() for a description.
+	 */
+	public function setup_globals( $bp_globals = array() ) {
+		parent::setup_globals(
+			array(
+				'slug'            => 'custom',
+
+				// This what comes after your `site_url()`.
+				'root_slug'       => 'custom-component',
+
+				// I confirm my component has a directory page.
+				'has_directory'   => true,
+
+				// This is new in BuddyPress 12.0.0.
+				'rewrite_ids'     => array(
+					'directory'                    => 'custom_directory',
+					'single_item'                  => 'custom_item',
+					'single_item_action'           => 'custom_item_action',
+					'single_item_action_variables' => 'custom_item_action_variables',
+				),
+				'directory_title' => __( 'Custom directory', 'custom-text-domain' ),
+				'search_string'   => __( 'Search custom items', 'custom-text-domain' ),
+			)
+		);
+	}
+
+	/**
 	 * Include your component's required files.
 	 *
 	 * @param array $files An array of file names located into `$this->path`.
@@ -153,5 +186,55 @@ class BP_Custom_AddOn_Component extends BP_Component {
 		}
 
 		parent::setup_admin_bar( $wp_admin_bar );
+	}
+
+	/**
+	 * Parse the WP_Query and eventually display the component's directory or single item.
+	 *
+	 * @since 12.0.0
+	 *
+	 * @param WP_Query $query Required. See BP_Component::parse_query() for
+	 *                        description.
+	 */
+	public function parse_query( $query ) {
+		if ( 1 === (int) $query->get( $this->rewrite_ids['directory'] ) ) {
+			$bp = buddypress();
+
+			// Set the Custom component as current.
+			$bp->current_component = 'custom';
+
+			$custom_item_slug = $query->get( $this->rewrite_ids['single_item'] );
+
+			// Set the Custom component current item.
+			if ( $custom_item_slug ) {
+				$bp->current_item = $custom_item_slug;
+
+				$current_action = $query->get( $this->rewrite_ids['single_item_action'] );
+
+				// Set the Custom component current item action.
+				if ( $current_action ) {
+					$bp->current_action = $current_action;
+				}
+
+				$action_variables = $query->get( $this->rewrite_ids['single_item_action_variables'] );
+
+				// Set the Custom component current item action variables.
+				if ( $action_variables ) {
+					if ( ! is_array( $action_variables ) ) {
+						$bp->action_variables = explode( '/', ltrim( $action_variables, '/' ) );
+					} else {
+						$bp->action_variables = $action_variables;
+					}
+				}
+			}
+
+			// Set the BuddyPress queried object.
+			if ( isset( $bp->pages->custom->id ) ) {
+				$query->queried_object    = get_post( $bp->pages->custom->id );
+				$query->queried_object_id = $query->queried_object->ID;
+			}
+		}
+
+		parent::parse_query( $query );
 	}
 }
