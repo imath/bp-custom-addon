@@ -1,8 +1,27 @@
 <?php
+/**
+ * BP Custom Add-on Component.
+ *
+ * @package \inc\classes\class-bp-custom_addon-component
+ *
+ * @since 1.0.0
+ */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * BP Custom Add-on Component Class.
+ *
+ * @since 1.0.0
+ */
 class BP_Custom_AddOn_Component extends BP_Component {
 	/**
 	 * Your component's constructor.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		parent::start(
@@ -36,10 +55,10 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	public function setup_globals( $bp_globals = array() ) {
 		parent::setup_globals(
 			array(
-				'slug'            => 'custom',
+				'slug'            => 'custom-slug',
 
 				// This what comes after your `site_url()`.
-				'root_slug'       => 'custom-component',
+				'root_slug'       => 'custom-directory-slug',
 
 				// I confirm my component has a directory page.
 				'has_directory'   => true,
@@ -60,6 +79,8 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	/**
 	 * Include your component's required files.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param array $files An array of file names located into `$this->path`.
 	 *                     NB: `$this->path` in this example is `/wp-content/plugins/bp-custom/inc`
 	 */
@@ -73,6 +94,8 @@ class BP_Custom_AddOn_Component extends BP_Component {
 
 	/**
 	 * Register your component‘s navigation.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param array $main_nav Associative array
 	 * @param array $sub_nav  Optional. Multidimensional Associative array.
@@ -114,6 +137,8 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	/**
 	 * Get the user logged in URL in BuddyPress >= 12.0.0 and older ones.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param array $path_chunks {
 	 *     An array of arguments. Optional.
 	 *
@@ -151,7 +176,7 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	/**
 	 * Set up the component entries in the WordPress Admin Bar.
 	 *
-	 * @since BuddyPress 1.5.0
+	 * @since 1.0.0
 	 *
 	 * @param array $wp_admin_bar A multidimensional array of nav item arguments.
 	 */
@@ -191,7 +216,7 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	/**
 	 * Parse the WP_Query and eventually display the component's directory or single item.
 	 *
-	 * @since 12.0.0
+	 * @since 1.0.0
 	 *
 	 * @param WP_Query $query Required. See BP_Component::parse_query() for
 	 *                        description.

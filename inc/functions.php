@@ -12,16 +12,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Outputs the content of Custom pages for the displayed user.
+ *
+ * @since 1.0.0
+ */
 function bp_custom_add_on_screen_displayed() {
 	echo 'It works!';
 }
 
+/**
+ * Screen function used for the Custom member navigation items.
+ *
+ * @since 1.0.0
+ */
 function bp_custom_add_on_screen_callback() {
 	bp_core_load_template( 'members/single/home' );
 
 	add_action( 'bp_template_content', 'bp_custom_add_on_screen_displayed' );
 }
 
+/**
+ * Sets the template to load for the Custom directory.
+ *
+ * @since 1.0.0
+ */
 function bp_custom_add_on_directory_screen() {
 	if ( ! bp_is_current_component( 'custom' ) || bp_is_user() ) {
 		return;
