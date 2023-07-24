@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 function bp_custom_add_on_screen_displayed() {
-	echo 'It works!';
+	esc_html_e( 'It works!', 'custom-text-domain' );
 }
 
 /**

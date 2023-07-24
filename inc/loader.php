@@ -21,9 +21,3 @@ function bp_custom_add_on_component() {
 	buddypress()->custom = new BP_Custom_AddOn_Component();
 }
 add_action( 'bp_setup_components', 'bp_custom_add_on_component' );
-
-function bp_custom_add_on_include() {
-	?><pre><?php
-	print_r( buddypress()->loaded_components ); ?></pre><?php
-}
-//add_action( 'bp_setup_globals', 'bp_custom_add_on_include', 40 );

@@ -2,6 +2,9 @@
 /**
  * BP Custom Add-on is an example of BuddyPress Add-on.
  *
+ * Its goal is to explain BuddyPress 12.0.0 important changes and what third party plugin authors
+ * now need to do to have their add-ons compatible with BuddyPress 12.0.0 or up.
+ *
  * @package   BP Custom Add-on
  * @author    imath
  * @license   GPL-2.0+
@@ -10,7 +13,7 @@
  * @buddypress-plugin
  * Plugin Name:       BP Custom Add-on
  * Plugin URI:        https://github.com/imath/bp-custom-addon
- * Description:       BP Custom Add-on is an example of BuddyPress Add-on.
+ * Description:       BP Custom Add-on is an example of BuddyPress Add-on. Its goal is to explain BP 12.0.0 important changes and what third party plugin authors now need to do to have their add-on compatible with BP 12.0.0 or up.
  * Version:           1.0.0-alpha
  * Author:            imath
  * Author URI:        https://imathi.eu
@@ -46,6 +49,8 @@ class BP_Custom_AddOn {
 
 	/**
 	 * Checks whether BuddyPress is active and current version is supported.
+	 *
+	 * This Add-on requires BuddyPress 12.0 or up.
 	 *
 	 * @since 1.0.0
 	 */
