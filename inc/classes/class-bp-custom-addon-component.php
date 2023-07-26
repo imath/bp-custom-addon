@@ -85,11 +85,15 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	 *                     NB: `$this->path` in this example is `/wp-content/plugins/bp-custom/inc`
 	 */
 	public function includes( $files = array() ) {
-		parent::includes(
-			array(
-				'functions.php',
-			)
+		$files = array(
+			'functions.php',
 		);
+
+		if ( bp_is_active( 'groups' ) ) {
+			$files[] = 'groups.php';
+		}
+
+		parent::includes( $files );
 	}
 
 	/**
