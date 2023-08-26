@@ -116,6 +116,59 @@ function bp_custom_add_on_set_content_template() {
 		);
 	}
 
+	// Shows how to use the new BP Functions to build URLs.
+	if ( ! bp_current_item() ) {
+		// This is an example of item link.
+		$link_to_random_component_item = bp_rewrites_get_url(
+			array(
+				'component_id' => 'custom', // The ID of your component, see `bp_custom_add_on_component()`.
+				'single_item'  => 'random', // The slug of one of your component's single item.
+			)
+		);
+
+		$template .= sprintf(
+			'<p>%1$s <a href="%2$s">%3$s</a></p>',
+			esc_html__( 'Visit Random item: ', 'custom-text-domain' ),
+			esc_url( $link_to_random_component_item ),
+			esc_html__( 'Random is here', 'custom-text-domain' ),
+		);
+
+		// This is an example of action link about an item.
+		$link_to_random_component_item_action = bp_rewrites_get_url(
+			array(
+				'component_id'        => 'custom', // The ID of your component, see `bp_custom_add_on_component()`.
+				'single_item'         => 'random', // The slug of one of your component's single item.
+				'single_item_action'  => 'edit',   // The slug of one of your component's single item's action.
+			)
+		);
+
+		$template .= sprintf(
+			'<p>%1$s <a href="%2$s">%3$s</a></p>',
+			esc_html__( 'Visit Random item action: ', 'custom-text-domain' ),
+			esc_url( $link_to_random_component_item_action ),
+			esc_html__( 'Random’s action is here', 'custom-text-domain' ),
+		);
+
+		// This is an example of action variables link about an item.
+		$link_to_random_component_item_action_variables = bp_rewrites_get_url(
+			array(
+				'component_id'                 => 'custom', // The ID of your component, see `bp_custom_add_on_component()`.
+				'single_item'                  => 'random', // The slug of one of your component single item.
+				'single_item_action'           => 'edit',   // The slug of one of your component single item's action.
+				'single_item_action_variables' => array(
+					'something', 'new'
+				),                                          // An array of action variable slugs for one of your component single item's action.
+			)
+		);
+
+		$template .= sprintf(
+			'<p>%1$s <a href="%2$s">%3$s</a></p>',
+			esc_html__( 'Visit Random item action variables: ', 'custom-text-domain' ),
+			esc_url( $link_to_random_component_item_action_variables ),
+			esc_html__( 'Random’s action variables are here', 'custom-text-domain' ),
+		);
+	}
+
 	return $template;
 }
 
