@@ -118,6 +118,11 @@ function bp_custom_add_on_set_content_template() {
 
 	// Shows how to use the new BP Functions to build URLs.
 	if ( ! bp_current_item() ) {
+		/**
+		 * The `bp_rewrites_get_url()` function will help you build your links for pretty or
+		 * plain permalinks.
+		 */
+
 		// This is an example of item link.
 		$link_to_random_component_item = bp_rewrites_get_url(
 			array(
