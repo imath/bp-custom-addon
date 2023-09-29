@@ -13,20 +13,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Returns Add-on version.
+ *
+ * @since 1.0.0
+ */
+function bp_custom_add_on_get_version() {
+	return '1.0.0-alpha';
+}
+
+/**
  * Outputs the content of Custom pages for the displayed user.
  *
  * @since 1.0.0
  */
 function bp_custom_add_on_screen_displayed() {
-	esc_html_e( 'It works!', 'custom-text-domain' );
+	printf(
+		'<p>%s</p>',
+		esc_html__( 'It works!', 'custom-text-domain' )
+	);
+
+	/**
+	 * Fires after the custom add-on member's tab displayed content.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'bp_custom_add_on_screen_displayed' );
 }
 
 /**
- * Screen function used for the Custom member navigation items.
+ * Screen function used for the Custom Add-on member navigation items.
  *
  * @since 1.0.0
  */
 function bp_custom_add_on_screen_callback() {
+	/**
+	 * Fires just before the Custom Add-on template is loaded.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'bp_custom_add_on_screen_callback' );
+
 	bp_core_load_template( 'members/single/home' );
 
 	add_action( 'bp_template_content', 'bp_custom_add_on_screen_displayed' );

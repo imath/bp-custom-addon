@@ -55,23 +55,26 @@ class BP_Custom_AddOn_Component extends BP_Component {
 	public function setup_globals( $bp_globals = array() ) {
 		parent::setup_globals(
 			array(
-				'slug'            => 'custom-slug',
+				'slug'                  => 'custom-slug',
 
 				// This what comes after your `site_url()`.
-				'root_slug'       => 'custom-directory-slug',
+				'root_slug'             => 'custom-directory-slug',
 
 				// I confirm my component has a directory page.
-				'has_directory'   => true,
+				'has_directory'         => true,
 
 				// This is new in BuddyPress 12.0.0.
-				'rewrite_ids'     => array(
+				'rewrite_ids'           => array(
 					'directory'                    => 'custom_directory',
 					'single_item'                  => 'custom_item',
 					'single_item_action'           => 'custom_item_action',
 					'single_item_action_variables' => 'custom_item_action_variables',
 				),
-				'directory_title' => __( 'Custom directory', 'custom-text-domain' ),
-				'search_string'   => __( 'Search custom items', 'custom-text-domain' ),
+				'directory_title'       => __( 'Custom directory', 'custom-text-domain' ),
+				'search_string'         => __( 'Search custom items', 'custom-text-domain' ),
+
+				// Set the notifications callback
+				'notification_callback' => 'bp_custom_add_on_notifications_format_callback',
 			)
 		);
 	}
@@ -91,6 +94,10 @@ class BP_Custom_AddOn_Component extends BP_Component {
 
 		if ( bp_is_active( 'groups' ) ) {
 			$files[] = 'groups.php';
+		}
+
+		if ( bp_is_active( 'notifications' ) ) {
+			$files[] = 'notifications.php';
 		}
 
 		parent::includes( $files );
