@@ -14,7 +14,7 @@
  * Plugin Name:       BP Custom Add-on
  * Plugin URI:        https://github.com/imath/bp-custom-addon
  * Description:       BP Custom Add-on is an example of BuddyPress Add-on. Its goal is to explain BP 12.0.0 important changes and what third party plugin authors now need to do to have their add-on compatible with BP 12.0.0 or up.
- * Version:           1.0.0-alpha
+ * Version:           1.0.0
  * Author:            imath
  * Author URI:        https://imathi.eu
  * Text Domain:       custom-text-domain
@@ -25,7 +25,6 @@
  * Requires at least: 6.2
  * Requires PHP:      5.6
  * Requires Plugins:  buddypress
- * Supports BP up to: 12.0
  */
 
 // Exit if accessed directly.

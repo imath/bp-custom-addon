@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 function bp_custom_add_on_get_version() {
-	return '1.0.0-alpha';
+	return '1.0.0';
 }
 
 /**
