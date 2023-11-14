@@ -80,13 +80,13 @@ class BP_Custom_AddOn {
 	 * @since 1.0.0
 	 */
 	public static function start() {
-		// This plugin is only usable with the genuine BuddyPress.
-		if ( ! self::is_buddypress_supported() ) {
-			return false;
-		}
-
 		// If the single instance hasn't been set, set it now.
 		if ( null === self::$instance ) {
+			// This plugin is only usable with the genuine BuddyPress.
+			if ( ! self::is_buddypress_supported() ) {
+				return false;
+			}
+
 			self::$instance = new self();
 		}
 
